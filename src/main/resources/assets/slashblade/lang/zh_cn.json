@@ -1,0 +1,93 @@
+{
+  "itemGroup.slashblade": "拔刀剑",
+  "itemGroup.slashblade.desc": "§7§o§l落入阿修罗界",
+
+  "attribute.name.generic.reachDistance":"触摸距离",
+
+  "stat.slashblade.sword_summoned": "Sword Summoned",
+
+  "slashblade.tooltip.killcount"  :"击杀数   :%1$s",
+  "slashblade.tooltip.refine"     :"锻造数   :%1$s",
+
+  "slashblade.tooltip.material":"所需制作条件",
+  "slashblade.tooltip.material.requiredobjects.anvil":"所需物品：铁砧",
+  "slashblade.tooltip.material.killcount":"%1$s <= 击杀数",
+  "slashblade.tooltip.material.refine":"%1$s <= 锻造数",
+  "slashblade.tooltip.material.level":"%1$s <= 玩家等级",
+  "slashblade.tooltip.material.broken":"断裂",
+  "slashblade.tooltip.material.noscabbard":"无刀鞘",
+  "slashblade.tooltip.material.enchantments":"附魔",
+
+  "item.slashblade.slashblade": "无铭 「无名」",
+  "item.slashblade.slashblade.desc": "§7§o§l同类相食维护\n§7§o§l一个纯粹的容器",
+  "item.slashblade.simple.wood": "无铭 「木偶」",
+  "item.slashblade.simple.wood.desc": "§7§o§l木制的剑和鞘",
+  "item.slashblade.simple.white": "锐刀 「白」",
+  "item.slashblade.simple.white.desc": "§7§o§l铁制的边",
+  "item.slashblade.simple.white.material": "刀组件 「白」",
+  "item.slashblade.simple.bamboo": "无铭 「竹光」",
+  "item.slashblade.simple.bamboo.desc": "§7§o§l未完成的仿制刀片",
+  "item.slashblade.simple.bamboo.material": "刀组件 「竹」",
+  "item.slashblade.simple.silverbamboo": "名刀 「银竹光」",
+  "item.slashblade.simple.silverbamboo.desc": "§7§o§l仿制",
+  "item.slashblade.simple.silverbamboo.material": "刀组件 「仿制」",
+  "item.slashblade.simple.iron": "拔刀剑 「」",
+  "item.slashblade.simple.iron.desc": "§7§o§l经典之作",
+  "item.slashblade.simple.iron.material": "刀组件 「铁」",
+
+  "item.slashblade.ex.ruby": "锐刀 「无铭」 红宝石",
+  "item.slashblade.ex.ruby.desc": "§7§o§l小高一级",
+  "item.slashblade.ex.ruby.material": "刀组件 「红宝石」",
+
+  "item.slashblade.ex.fox.white": "「纯白」 樱之狐",
+  "item.slashblade.ex.fox.white.desc": "§7§o§l幸运星座",
+  "item.slashblade.ex.fox.white.material": "刀组件 「白狐」",
+  "item.slashblade.ex.fox.black": "「雾霭」 樱之狐",
+  "item.slashblade.ex.fox.black.desc": "§7§o§l逆天之刃",
+  "item.slashblade.ex.fox.black.material": "刀组件 「黑狐」",
+
+  "item.slashblade.ex.tukumo": "高尚之刃 「九十九」 紫罗兰",
+  "item.slashblade.ex.tukumo.desc": "§7§o§l铁木刀的篇章",
+  "item.slashblade.ex.tukumo.material": "刀组件 「九十九」",
+
+  "item.slashblade.ex.muramasa": "「千鹤」 村正",
+  "item.slashblade.ex.muramasa.desc": "§7§o§l遗失的村正之一",
+  "item.slashblade.ex.muramasa.material": "刀组件 「村正」",
+
+
+  "item.slashblade.proudsoul": "荣耀之魂",
+  "item.slashblade.proudsoul_tiny":"小型荣耀之魂",
+  "item.slashblade.proudsoul_ingot":"刀魂铁锭",
+  "item.slashblade.proudsoul_sphere":"刀魂宝珠",
+  "item.slashblade.proudsoul_crystal":"刀魂水晶",
+  "item.slashblade.proudsoul_trapezohedron":"刀魂偏方面体",
+
+  "item.slashblade.bladestand_1": "单刀架",
+  "item.slashblade.bladestand_2": "双刀架",
+  "item.slashblade.bladestand_v": "垂直刀片架",
+  "item.slashblade.bladestand_s": "刀锋短架",
+  "item.slashblade.bladestand_1w":"刀锋壁挂单刀架",
+  "item.slashblade.bladestand_2w":"刀片壁架双刀架",
+
+  "adv.slashblade.proudsoul": "Limit of Refine=50\nBlade is Fragile.\nThe soul never wastes.",
+  "adv.slashblade.proudsoul_tiny":"Limit of Refine=10\nMysterious burning soul.",
+  "adv.slashblade.proudsoul_ingot": "Limit of Refine=100\nSteel forged with a burning soul.",
+  "adv.slashblade.proudsoul_sphere": "Limit of Refine=150\nSmelting\nJewel of Steel with a faint flame.",
+  "adv.slashblade.proudsoul_crystal": "Limit of Refine=200\nBlasting\nThe core of the blade soul.",
+  "adv.slashblade.proudsoul_trapezohedron":"Unlimited Refinement\nSmoking\nThe blade soul that arrives at the end.",
+
+  "adv.slashblade.reforge":"Blade Reforge",
+  "adv.slashblade.reforge.desc":"Blades and components are assembled using anvils.",
+
+  "adv.slashblade.refine":"Blade Refine",
+  "adv.slashblade.refine.desc":"Blades increase their potential each time they are refined.",
+
+  "adv.slashblade.white_broken":"Broken Edge",
+  "adv.slashblade.white_broken.desc":"Reforge!",
+
+  "adv.slashblade.bladestand":"Blade Stand",
+  "adv.slashblade.bladestand.desc":"A place to rest your blades.",
+
+  "adv.slashblade.imitation_broken":"It is fake.",
+  "adv.slashblade.imitation_broken.desc":"That’s the way of fake."
+}
