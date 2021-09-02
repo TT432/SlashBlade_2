@@ -19,24 +19,20 @@
 
 package mods.flammpfeil.slashblade.capability.slashblade;
 
-import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.capability.slashblade.combo.Extra;
 import mods.flammpfeil.slashblade.client.renderer.CarryType;
-import mods.flammpfeil.slashblade.item.ItemSlashBlade;
-import mods.flammpfeil.slashblade.specialattack.SlashArts;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.DoubleNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -210,7 +206,6 @@ public class CapabilitySlashBlade
                 instance.setComboRootName(tag.getString("ComboRoot"));
                 instance.setComboRootAirName(tag.getString("ComboRootAir"));
             }
-        },
-        () -> new SlashBladeState());
+        }, SlashBladeState::new);
     }
 }

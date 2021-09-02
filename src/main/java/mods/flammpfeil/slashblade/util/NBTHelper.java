@@ -1,7 +1,10 @@
 package mods.flammpfeil.slashblade.util;
 
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.DoubleNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.math.vector.Vector3d;
+
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;

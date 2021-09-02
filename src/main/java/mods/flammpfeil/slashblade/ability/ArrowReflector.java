@@ -1,7 +1,6 @@
 package mods.flammpfeil.slashblade.ability;
 
 import mods.flammpfeil.slashblade.capability.slashblade.ComboState;
-import mods.flammpfeil.slashblade.entity.IShootable;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.util.TargetSelector;
 import mods.flammpfeil.slashblade.util.TimeValueHelper;

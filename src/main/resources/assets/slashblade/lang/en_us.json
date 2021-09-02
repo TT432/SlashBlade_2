@@ -17,7 +17,7 @@
   "slashblade.tooltip.material.broken":"Broken",
   "slashblade.tooltip.material.noscabbard":"No Scabbard",
   "slashblade.tooltip.material.enchantments":"Enchantments",
-  
+
   "item.slashblade.slashblade": "Anonymity -Nameless-",
   "item.slashblade.slashblade.desc": "Cannibalism maintenance\nA pure vessel.",
   "item.slashblade.simple.wood": "Anonymity -Wood-",
@@ -53,6 +53,8 @@
   "item.slashblade.ex.muramasa": "-Chizuru- Muramasa",
   "item.slashblade.ex.muramasa.desc": "One of the lost muramasa swords.",
   "item.slashblade.ex.muramasa.material": "Blade Component -Muramasa-",
+
+  "item.slashblade.yamato": "Maken -Yamato-",
 
 
   "item.slashblade.proudsoul": "Proud Soul",

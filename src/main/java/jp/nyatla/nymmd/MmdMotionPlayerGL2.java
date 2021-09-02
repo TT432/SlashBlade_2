@@ -1,23 +1,19 @@
 package jp.nyatla.nymmd;
 
 
-import java.awt.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-import java.util.Vector;
-
 import com.mojang.blaze3d.platform.GlStateManager;
 import jp.nyatla.nymmd.types.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.util.Vector;
 
 
 public class MmdMotionPlayerGL2 extends MmdMotionPlayer
@@ -56,14 +52,14 @@ public class MmdMotionPlayerGL2 extends MmdMotionPlayer
 		//Material配列の作成
 		PmdMaterial[] m = i_pmd_model.getMaterials();// this._ref_materials;
 		Vector<Material> materials = new Vector<Material>();
-		for (int i = 0; i < m.length; i++){
+		for (PmdMaterial pmdMaterial : m) {
 			final Material new_material = new Material();
-			new_material.unknown=m[i].unknown;
+			new_material.unknown = pmdMaterial.unknown;
 			// D,A,S[rgba]
 			float[] color = new float[12];
-			m[i].col4Diffuse.getValue(color, 0);
-			m[i].col4Ambient.getValue(color, 4);
-			m[i].col4Specular.getValue(color, 8);
+			pmdMaterial.col4Diffuse.getValue(color, 0);
+			pmdMaterial.col4Ambient.getValue(color, 4);
+			pmdMaterial.col4Specular.getValue(color, 8);
 
 			new_material.color = color;
 			/*
@@ -72,25 +68,23 @@ public class MmdMotionPlayerGL2 extends MmdMotionPlayer
 			new_material.color.position(0);
 */
 
-			new_material.fShininess = m[i].fShininess;
+			new_material.fShininess = pmdMaterial.fShininess;
 
-			if (m[i].texture_name != null && !m[i].texture_name.isEmpty())
-			{
-				new_material.texture_id = tp.getTextureStream(m[i].texture_name);
+			if (pmdMaterial.texture_name != null && !pmdMaterial.texture_name.isEmpty()) {
+				new_material.texture_id = tp.getTextureStream(pmdMaterial.texture_name);
 			} else {
 				new_material.texture_id = null;
 			}
 
 			//new_material.indices=ShortBuffer.wrap(m[i].indices);
-			new_material.indices = m[i].indices;
+			new_material.indices = pmdMaterial.indices;
 
-			new_material.ulNumIndices = m[i].indices.length;
+			new_material.ulNumIndices = pmdMaterial.indices.length;
 			materials.add(new_material);
 		}
 		this._materials = materials.toArray(new Material[materials.size()]);
 
 		this._tex_array = this._ref_pmd_model.getUvArray();
-		return;		
 	}
 	public void setVmd(MmdVmdMotion_BasicClass i_vmd_model) throws MmdException
 	{
@@ -137,7 +131,6 @@ public class MmdMotionPlayerGL2 extends MmdMotionPlayer
 			ft[p2++]=((float)(vp.x * mat.m01 + vp.y * mat.m11 + vp.z * mat.m21));
 			ft[p2++]=((float)(vp.x * mat.m02 + vp.y * mat.m12 + vp.z * mat.m22));
 		}
-		return;
 	}
 	public void render()
 	{
@@ -234,14 +227,12 @@ public class MmdMotionPlayerGL2 extends MmdMotionPlayer
 
 		GL11.glPopClientAttrib();
 		GL11.glPopAttrib();
-		return;
 	}
 
     private static FloatBuffer makeFloatBuffer(int i_size)
     {
         ByteBuffer bb = ByteBuffer.allocateDirect(i_size*4);
         bb.order(ByteOrder.nativeOrder());
-        FloatBuffer fb = bb.asFloatBuffer();
-        return fb;
+		return bb.asFloatBuffer();
     }
 }

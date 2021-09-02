@@ -9,8 +9,10 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3f;
@@ -23,13 +25,15 @@ public class BladeFirstPersonRender {
     private BladeFirstPersonRender(){
         Minecraft mc = Minecraft.getInstance();
 
-        EntityRenderer renderer = mc.getRenderManager().getRenderer(mc.player);
+        EntityRenderer<?> renderer = mc.getRenderManager().getRenderer(mc.player);
         if(renderer instanceof IEntityRenderer)
-            layer = new LayerMainBlade((IEntityRenderer)renderer);
+            layer = new LayerMainBlade((IEntityRenderer) renderer);
     }
+
     private static final class SingletonHolder {
         private static final BladeFirstPersonRender instance = new BladeFirstPersonRender();
     }
+
     public static BladeFirstPersonRender getInstance(){
         return SingletonHolder.instance;
     }
@@ -37,7 +41,7 @@ public class BladeFirstPersonRender {
     public void render(MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int combinedLightIn){
         if(layer == null)
             return;
-        
+
         Minecraft mc = Minecraft.getInstance();
         boolean flag = mc.getRenderViewEntity() instanceof LivingEntity && ((LivingEntity) mc.getRenderViewEntity()).isSleeping();
         if (!(mc.gameSettings.getPointOfView() == PointOfView.FIRST_PERSON && !flag && !mc.gameSettings.hideGUI && !mc.playerController.isSpectatorMode())) {
@@ -48,7 +52,7 @@ public class BladeFirstPersonRender {
         if (stack.isEmpty()) return;
         if (!(stack.getItem() instanceof ItemSlashBlade)) return;
 
-        try(MSAutoCloser msac = MSAutoCloser.pushMatrix(matrixStack)){
+        try(MSAutoCloser ignored = MSAutoCloser.pushMatrix(matrixStack)){
             MatrixStack.Entry me = matrixStack.getLast();
             me.getMatrix().setIdentity();
             me.getNormal().setIdentity();

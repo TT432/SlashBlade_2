@@ -1,7 +1,5 @@
 package mods.flammpfeil.slashblade.util;
 
-import mods.flammpfeil.slashblade.SlashBlade;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.stats.ServerStatisticsManager;
 import net.minecraft.stats.Stat;

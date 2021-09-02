@@ -1,9 +1,10 @@
 package mods.flammpfeil.slashblade.capability.mobeffect;
 
-import com.google.common.collect.Maps;
 import net.minecraft.potion.Effect;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Set;
 
 public interface IMobEffectState {
     default void setManagedStun(long now, long duration){

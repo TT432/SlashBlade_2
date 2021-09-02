@@ -7,7 +7,6 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.Map;
-import java.util.function.Supplier;
 
 public abstract class RegistryBase<V extends IForgeRegistryEntry<V>>  extends ForgeRegistryEntry<V> {
     public static Map<ResourceLocation, Map<ResourceLocation, Object>> registries = Maps.newHashMap();

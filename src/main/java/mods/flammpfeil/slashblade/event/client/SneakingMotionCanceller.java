@@ -2,14 +2,11 @@ package mods.flammpfeil.slashblade.event.client;
 
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.entity.Pose;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class SneakingMotionCanceller {
     private static final class SingletonHolder {

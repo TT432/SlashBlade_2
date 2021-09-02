@@ -9,6 +9,7 @@ public enum InputCommand {
     SNEAK,
     R_DOWN,
     L_DOWN,
+    /** summoned key */
     M_DOWN,
     R_CLICK,
     L_CLICK,

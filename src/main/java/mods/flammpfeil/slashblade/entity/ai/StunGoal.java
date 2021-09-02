@@ -3,9 +3,6 @@ package mods.flammpfeil.slashblade.entity.ai;
 import mods.flammpfeil.slashblade.capability.mobeffect.CapabilityMobEffect;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.pathfinding.GroundPathNavigator;
 
 import java.util.EnumSet;
 

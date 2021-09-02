@@ -123,10 +123,7 @@ public class WavefrontObject
 
                     Face face = parseFace(currentLine, lineCount);
 
-                    if (face != null)
-                    {
-                        currentGroupObject.faces.add(face);
-                    }
+                    currentGroupObject.faces.add(face);
                 }
                 else if (currentLine.startsWith("g ") | currentLine.startsWith("o "))
                 {
@@ -215,9 +212,9 @@ public class WavefrontObject
             exclude=false;
             for (String excludedGroupName : excludedGroupNames)
             {
-                if (excludedGroupName.equalsIgnoreCase(groupObject.name))
-                {
-                    exclude=true;
+                if (excludedGroupName.equalsIgnoreCase(groupObject.name)) {
+                    exclude = true;
+                    break;
                 }
             }
             if(!exclude)

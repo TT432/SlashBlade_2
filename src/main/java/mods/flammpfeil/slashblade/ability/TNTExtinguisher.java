@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class TNTExtinguisher {

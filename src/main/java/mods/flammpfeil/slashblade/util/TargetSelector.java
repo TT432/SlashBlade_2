@@ -4,7 +4,10 @@ import com.google.common.collect.Lists;
 import mods.flammpfeil.slashblade.entity.IShootable;
 import mods.flammpfeil.slashblade.event.InputCommandEvent;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPredicate;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -71,10 +74,7 @@ public class TargetSelector {
     static public class AttackablePredicate implements Predicate<LivingEntity> {
         public boolean test(LivingEntity livingentity) {
             if (livingentity instanceof ArmorStandEntity)
-                if (((ArmorStandEntity) livingentity).hasMarker())
-                    return true;
-                else
-                    return false;
+                return ((ArmorStandEntity) livingentity).hasMarker();
 
             if (livingentity instanceof IMob)
                 return true;
@@ -83,7 +83,7 @@ public class TargetSelector {
                 return true;
 
             if (livingentity instanceof WolfEntity)
-                if (((WolfEntity) livingentity).func_233678_J__()/*isAngry()*/)
+                if (((WolfEntity) livingentity).isAngry()/*isAngry()*/)
                     return true;
 
             if (livingentity.getTags().contains(AttackableTag)){
@@ -91,10 +91,7 @@ public class TargetSelector {
                 return true;
             }
 
-            if(livingentity.getTeam() != null)
-                return true;
-
-            return false;
+            return livingentity.getTeam() != null;
         }
     }
 
@@ -105,7 +102,7 @@ public class TargetSelector {
         World world = attacker.world;
         return Stream.of(
                 world.getEntitiesWithinAABB(ProjectileEntity.class, aabb).stream()
-                        .filter(e-> ((e.func_234616_v_()/*getThrower()*/ == null || e.func_234616_v_()/*getThrower()*/ != attacker) && (e instanceof IShootable ? ((IShootable)e).getShooter() != attacker : true))))
+                        .filter(e-> ((e.getShooter()/*getThrower()*/ == null || e.getShooter()/*getThrower()*/ != attacker) && (!(e instanceof IShootable) || ((IShootable) e).getShooter() != attacker))))
                 /*
                 world.getEntitiesWithinAABB(DamagingProjectileEntity.class, aabb).stream()
                         .filter(e-> (e.shootingEntity == null || e.shootingEntity != attacker)),
@@ -184,7 +181,7 @@ public class TargetSelector {
 
         return Stream.of(
                 world.getEntitiesWithinAABB(ProjectileEntity.class, aabb).stream()
-                        .filter(e-> (e.func_234616_v_()/*getThrower()*/ == null || e.func_234616_v_()/*getThrower()*/ != owner.getShooter())))
+                        .filter(e-> (e.getShooter() == null || e.getShooter() != owner.getShooter())))
                 /*
                 world.getEntitiesWithinAABB(DamagingProjectileEntity.class, aabb).stream()
                         .filter(e-> (e.shootingEntity == null || e.shootingEntity != owner.getShooter())),

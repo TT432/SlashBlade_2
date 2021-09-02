@@ -3,6 +3,7 @@ package mods.flammpfeil.slashblade.event;
 import com.google.gson.*;
 import mods.flammpfeil.slashblade.capability.inputstate.IInputState;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
+import mods.flammpfeil.slashblade.keybind.KeyBindHandler;
 import mods.flammpfeil.slashblade.network.MoveCommandMessage;
 import mods.flammpfeil.slashblade.network.NetworkManager;
 import mods.flammpfeil.slashblade.util.*;
@@ -74,7 +75,7 @@ public class MoveInputHandler {
         if(Minecraft.getInstance().gameSettings.keyBindAttack.isKeyDown())
             commands.add(InputCommand.L_DOWN);
 
-        if(Minecraft.getInstance().gameSettings.keyBindPickBlock.isKeyDown())
+        if(KeyBindHandler.SUMMONED_SWORD_KEY.isKeyDown())
             commands.add(InputCommand.M_DOWN);
 
 

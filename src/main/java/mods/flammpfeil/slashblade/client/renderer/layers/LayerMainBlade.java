@@ -1,7 +1,10 @@
 package mods.flammpfeil.slashblade.client.renderer.layers;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import jp.nyatla.nymmd.*;
+import jp.nyatla.nymmd.MmdException;
+import jp.nyatla.nymmd.MmdMotionPlayerGL2;
+import jp.nyatla.nymmd.MmdPmdModelMc;
+import jp.nyatla.nymmd.MmdVmdMotionMc;
 import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.capability.slashblade.CapabilitySlashBlade;
 import mods.flammpfeil.slashblade.capability.slashblade.ComboState;
@@ -23,16 +26,12 @@ import net.minecraft.potion.EffectUtils;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.common.util.LazyOptional;
-import org.lwjgl.opengl.GL11;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.util.Arrays;
 
 public class LayerMainBlade<T extends LivingEntity, M extends EntityModel<T>> extends LayerRenderer<T, M> {
 

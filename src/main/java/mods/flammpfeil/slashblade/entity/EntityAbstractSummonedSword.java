@@ -24,7 +24,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.PotionUtils;
@@ -147,12 +146,16 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
     public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
         Vector3d vec3d = (new Vector3d(x, y, z)).normalize().add(this.rand.nextGaussian() * (double)0.0075F * (double)inaccuracy, this.rand.nextGaussian() * (double)0.0075F * (double)inaccuracy, this.rand.nextGaussian() * (double)0.0075F * (double)inaccuracy).scale((double)velocity);
         this.setMotion(vec3d);
+        shoot(vec3d);
+        this.ticksInGround = 0;
+    }
+
+    private void shoot(Vector3d vec3d) {
         float f = MathHelper.sqrt(horizontalMag(vec3d));
         this.rotationYaw = (float)(MathHelper.atan2(vec3d.x, vec3d.z) * (double)(180F / (float)Math.PI));
-        this.rotationPitch = (float)(MathHelper.atan2(vec3d.y, (double)f) * (double)(180F / (float)Math.PI));
+        this.rotationPitch = (float)(MathHelper.atan2(vec3d.y, f) * (double)(180F / (float)Math.PI));
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
-        this.ticksInGround = 0;
     }
 
     @Override
@@ -209,7 +212,7 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
 
     private void refreshFlags(){
         if(this.world.isRemote){
-            int newValue = this.dataManager.get(FLAGS).intValue();
+            int newValue = this.dataManager.get(FLAGS);
             if(intFlags != newValue){
                 intFlags = newValue;
                 EnumSetConverter.convertToEnumSet(flags, FlagsState.values(), intFlags);
@@ -307,11 +310,7 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
             //process pose
             Vector3d motionVec = this.getMotion();
             if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-                float f = MathHelper.sqrt(horizontalMag(motionVec));
-                this.rotationYaw = (float)(MathHelper.atan2(motionVec.x, motionVec.z) * (double)(180F / (float)Math.PI));
-                this.rotationPitch = (float)(MathHelper.atan2(motionVec.y, (double)f) * (double)(180F / (float)Math.PI));
-                this.prevRotationYaw = this.rotationYaw;
-                this.prevRotationPitch = this.rotationPitch;
+                shoot(motionVec);
             }
 
             //process inAir
@@ -330,7 +329,7 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
                     raytraceresult = entityraytraceresult;
                 }
 
-                if (raytraceresult != null && raytraceresult.getType() == RayTraceResult.Type.ENTITY) {
+                if (raytraceresult instanceof EntityRayTraceResult) {
                     Entity entity = ((EntityRayTraceResult)raytraceresult).getEntity();
                     Entity entity1 = this.getShooter();
                     if (entity instanceof PlayerEntity && entity1 instanceof PlayerEntity && !((PlayerEntity)entity1).canAttackPlayer((PlayerEntity)entity)) {
@@ -478,8 +477,8 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
             damagesource = CustomDamageSource.causeSummonedSwordDamage(this, shooter);
             if (shooter instanceof LivingEntity) {
                 Entity hits = targetEntity;
-                if(targetEntity instanceof PartEntity){
-                    hits = ((PartEntity) targetEntity).getParent();
+                if(hits instanceof PartEntity){
+                    hits = ((PartEntity<?>) targetEntity).getParent();
                 }
                 ((LivingEntity)shooter).setLastAttackedEntity(hits);
             }
@@ -497,11 +496,7 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
                 StunManager.setStun(targetLivingEntity);
 
                 if (!this.world.isRemote && this.getPierce() <= 0) {
-                    Entity hits = targetEntity;
-                    if(targetEntity instanceof PartEntity){
-                        hits = ((PartEntity) targetEntity).getParent();
-                    }
-                    setHitEntity(hits);
+                    setHitEntity(targetEntity);
                 }
 
                 if (!this.world.isRemote && shooter instanceof LivingEntity) {
@@ -511,9 +506,9 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
 
                 //this.arrowHit(targetLivingEntity);
 
-                affectEntity(targetLivingEntity, getPotionEffects(), 1.0f);
+                EntityUtils.affectEntity(this, targetLivingEntity, getPotionEffects(), 1.0f);
 
-                if (shooter != null && targetLivingEntity != shooter && targetLivingEntity instanceof PlayerEntity && shooter instanceof ServerPlayerEntity) {
+                if (targetLivingEntity != shooter && targetLivingEntity instanceof PlayerEntity && shooter instanceof ServerPlayerEntity) {
                     ((ServerPlayerEntity) shooter).playSound(this.getHitEntityPlayerSound(), SoundCategory.PLAYERS, 0.18F, 0.45F);
                 }
             }
@@ -616,24 +611,9 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
                             factor = 1.0D;
                         }
 
-                        affectEntity(e, effects, factor);
+                        EntityUtils.affectEntity(this, e, effects, factor);
                     }
                 });
-    }
-
-
-    public void affectEntity(LivingEntity focusEntity, List<EffectInstance> effects, double factor){
-        for(EffectInstance effectinstance : getPotionEffects()) {
-            Effect effect = effectinstance.getPotion();
-            if (effect.isInstant()) {
-                effect.affectEntity(this, this.getShooter(), focusEntity, effectinstance.getAmplifier(), factor);
-            } else {
-                int duration = (int)(factor * (double)effectinstance.getDuration() + 0.5D);
-                if (duration > 0) {
-                    focusEntity.addPotionEffect(new EffectInstance(effect, duration, effectinstance.getAmplifier(), effectinstance.isAmbient(), effectinstance.doesShowParticles()));
-                }
-            }
-        }
     }
 
     private void resetAlreadyHits() {
@@ -691,7 +671,7 @@ public class EntityAbstractSummonedSword extends ProjectileEntity implements ISh
 
     public String getModelName(){
         String name = this.dataManager.get(MODEL);
-        if(name == null || name.length() == 0){
+        if(name.length() == 0){
             name = defaultModelName;
         }
         return name;

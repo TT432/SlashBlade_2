@@ -1,7 +1,6 @@
 package mods.flammpfeil.slashblade.entity;
 
 import mods.flammpfeil.slashblade.SlashBlade;
-import mods.flammpfeil.slashblade.event.KnockBackHandler;
 import mods.flammpfeil.slashblade.util.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,14 +13,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -339,15 +336,6 @@ public class EntityJudgementCut extends ProjectileEntity implements IShootable {
         this.shootingEntity = (shooter != null) ? shooter.getUniqueID() : null;
     }
 
-    public List<EffectInstance> getPotionEffects(){
-        List<EffectInstance> effects = PotionUtils.getEffectsFromTag(this.getPersistentData());
-
-        if(effects.isEmpty())
-            effects.add(new EffectInstance(Effects.POISON, 1, 1));
-
-        return effects;
-    }
-
     public void burst(){
         //this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 
@@ -355,7 +343,7 @@ public class EntityJudgementCut extends ProjectileEntity implements IShootable {
             if(this.world instanceof ServerWorld)
                 ((ServerWorld)this.world).spawnParticle(ParticleTypes.CRIT, this.getPosX(), this.getPosY(), this.getPosZ(), 16, 0.5, 0.5,0.5,0.25f);
 
-            this.burst( getPotionEffects(), null);
+            this.burst( EntityUtils.getPotionEffects(this), null);
         }
 
         super.remove();
@@ -381,23 +369,9 @@ public class EntityJudgementCut extends ProjectileEntity implements IShootable {
                             factor = 1.0D;
                         }
 
-                        affectEntity(e, effects, factor);
+                        EntityUtils.affectEntity(this, e, effects, factor);
                     }
                 });
-    }
-
-    public void affectEntity(LivingEntity focusEntity, List<EffectInstance> effects, double factor){
-        for(EffectInstance effectinstance : getPotionEffects()) {
-            Effect effect = effectinstance.getPotion();
-            if (effect.isInstant()) {
-                effect.affectEntity(this, this.getShooter(), focusEntity, effectinstance.getAmplifier(), factor);
-            } else {
-                int duration = (int)(factor * (double)effectinstance.getDuration() + 0.5D);
-                if (duration > 0) {
-                    focusEntity.addPotionEffect(new EffectInstance(effect, duration, effectinstance.getAmplifier(), effectinstance.isAmbient(), effectinstance.doesShowParticles()));
-                }
-            }
-        }
     }
 
     public void setDamage(double damageIn) {

@@ -2,7 +2,6 @@ package mods.flammpfeil.slashblade.mixin;
 
 
 import io.netty.buffer.ByteBuf;
-import mods.flammpfeil.slashblade.SlashBlade;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;

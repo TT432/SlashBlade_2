@@ -1,15 +1,12 @@
 package mods.flammpfeil.slashblade.capability.slashblade;
 
-import mods.flammpfeil.slashblade.capability.slashblade.ISlashBladeState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullFunction;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 
@@ -46,7 +43,7 @@ public class BladeStateCapabilityProvider implements ICapabilityProvider, INBTSe
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == ENERGY)
-            return state.filter(iSlashBladeState -> iSlashBladeState.hasEnergy()).isPresent()
+            return state.filter(ISlashBladeState::hasEnergy).isPresent()
                     ? storage.cast()
                     : LazyOptional.empty();
 

@@ -5,20 +5,19 @@ import mods.flammpfeil.slashblade.client.renderer.model.BladeFirstPersonRender;
 import mods.flammpfeil.slashblade.client.renderer.model.BladeModel;
 import mods.flammpfeil.slashblade.client.renderer.model.BladeModelManager;
 import mods.flammpfeil.slashblade.client.renderer.model.obj.WavefrontObject;
-import mods.flammpfeil.slashblade.client.renderer.util.MSAutoCloser;
 import mods.flammpfeil.slashblade.client.renderer.util.BladeRenderState;
+import mods.flammpfeil.slashblade.client.renderer.util.MSAutoCloser;
 import mods.flammpfeil.slashblade.entity.BladeStandEntity;
-import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.init.SBItems;
+import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.item.SwordType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.entity.Pose;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -50,8 +49,7 @@ public class SlashBladeTEISR extends ItemStackTileEntityRenderer {
 
     boolean checkRenderNaked(){
         ItemStack mainHand = BladeModel.user.getHeldItemMainhand();
-        if(!(mainHand.getItem() instanceof ItemSlashBlade))
-            return true;
+        return !(mainHand.getItem() instanceof ItemSlashBlade);
 /*
         if(ItemSlashBlade.hasScabbardInOffhand(BladeModel.user))
             return true;
@@ -60,8 +58,6 @@ public class SlashBladeTEISR extends ItemStackTileEntityRenderer {
         if(type.contains(SwordType.NoScabbard))
             return true;
 */
-
-        return false;
     }
 
     private boolean renderBlade(ItemStack stack, ItemCameraTransforms.TransformType transformType , MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn){

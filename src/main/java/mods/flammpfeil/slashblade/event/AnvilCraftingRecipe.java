@@ -1,23 +1,14 @@
 package mods.flammpfeil.slashblade.event;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import mods.flammpfeil.slashblade.capability.slashblade.BladeStateCapabilityProvider;
-import mods.flammpfeil.slashblade.capability.slashblade.SlashBladeState;
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import mods.flammpfeil.slashblade.util.NBTHelper;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
 
-import java.util.List;
 import java.util.Map;
 
 public class AnvilCraftingRecipe {
